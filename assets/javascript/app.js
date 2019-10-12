@@ -3,6 +3,8 @@ $(document).ready(function() {
 var count = 0;
 var correct = 0;
 var wrong = 0;
+var number = 30; //This shall be decreased
+var intervalId; //I'll use this for countdown
 
 var quizQuestions = [
     { 
@@ -23,6 +25,8 @@ var quizQuestions = [
 function yay() {
     correct++;
     console.log(correct);
+    //some UX stuff here
+    clearInterval(intervalId);
     $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
     $('#user-message').text("Yas qween!");
@@ -37,6 +41,8 @@ function yay() {
 function nay() {
     wrong++;
     console.log(wrong);
+    //some UX stuff here
+    clearInterval(intervalId);
     $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
     $('#user-message').text("NOPE! ");
@@ -48,6 +54,22 @@ function nay() {
       }, 5000); //wait to start next question
 }
 
+function timesUp(){
+    wrong++;
+    console.log(wrong);
+    //some UX stuff here
+    clearInterval(intervalId);
+    $('#questions').empty();
+    $('#answers').empty(); //clearing answers to show message
+    $('#user-message').text("Time's Up! ");
+    $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
+    $('#image').html("<img src="+quizQuestions[count].image+">");
+    count++;
+    var windowTimeout = setTimeout(function() {
+        playGame(quizQuestions[count]);
+      });
+}
+
 function playGame(quizQuestion){
    //clear button
    $('#start-here').html(""); 
@@ -56,7 +78,7 @@ function playGame(quizQuestion){
    $('#image').html(""); 
    console.log("Inside playGame");
    
-   //print question
+   //print question 
    console.log(quizQuestion.q);
    $('#questions').text(quizQuestion.q);
 
@@ -66,14 +88,22 @@ function playGame(quizQuestion){
     console.log(value);
   });
 
+  //set timer
+  intervalId = setInterval(function decrement(){
+    number--;
+    $("#time-remaining").text("00:"+number);
+    if (number === 0) {
+        timesUp();
+    }}, 1000);
+
    console.log("Before clicking") ;
   //check answer
-  $("h2[id*='answer-item']").on("click", function(){
+  $("h2[id*='answer-item']").on("click", function(){ //REUSABLE CODEEEEEEE
       console.log("Checking answer", $(this).text(), "vs", quizQuestion.correctAnswer)
     if ($(this).text() === quizQuestion.correctAnswer) {
-        yay();
+        yay(); //or how to avoid clicks stacking up
     } else {
-        nay();
+        nay(); //or how to avoid clicks stacking up
     }
   });
 
