@@ -18,6 +18,17 @@ body {
       border: 2px solid black;
       text-align: center;
       padding: 5% 27% 10% 28%;
+      text-align: center;
   }
-  .class-4-md {
+  .btn {
+      background: pink;
+      border: 2px solid purple;
+      color: black;
+  }
+
+  .btn:active, .btn:focus, .btn:hover {
+      background: purple;
+      color: white;
+      border: 2px solid pink;
+
   }
