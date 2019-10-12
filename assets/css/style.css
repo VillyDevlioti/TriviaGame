@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+      background-image: url("../images/background.jpg");
+      padding: 1%;
+  }
+
+  h1 {
+    font-family: 'Kanit', sans-serif;
+    color: magenta;
+    font-size: 48px;
+  }
+
+  .main-box {
+      background: yellow;
+      border: 2px solid black;
+      text-align: center;
+      padding: 5% 27% 10% 28%;
+  }
+  .class-4-md {
+  }
