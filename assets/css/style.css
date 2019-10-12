@@ -20,15 +20,23 @@ body {
       padding: 5% 27% 10% 28%;
       text-align: center;
   }
-  .btn {
+
+  #answers {
+      margin-top: 5%;
+  }
+
+  #answer-item {
       background: pink;
       border: 2px solid purple;
       color: black;
+      padding: 5%;
+      margin: 2% 0 2% 0;
+      border-radius: 4px;
   }
 
-  .btn:active, .btn:focus, .btn:hover {
-      background: purple;
-      color: white;
-      border: 2px solid pink;
+  #answer-item:hover {
+    background: purple;
+    border: 2px solid white;
+    color: white;
 
   }
