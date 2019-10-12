@@ -23,29 +23,37 @@ var quizQuestions = [
 function yay() {
     correct++;
     console.log(correct);
+    $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
-    $('#answers').text("Yas qween!");
+    $('#user-message').text("Yas qween!");
     $('#image').html("<img src="+quizQuestions[count].image+">")
     count++;
-    playGame(quizQuestions[count]);
+    var windowTimeout = setTimeout(function() {
+        playGame(quizQuestions[count]);
+      }, 5000); //wait to start next question
 
 }
 
 function nay() {
     wrong++;
     console.log(wrong);
+    $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
-    $('#answers').text("NOPE.");
-    $('#answers').text("The correct answer is: "+quizQuestions[count].correctAnswer);
+    $('#user-message').text("NOPE! ");
+    $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
-    playGame(quizQuestions[count]);
+    var windowTimeout = setTimeout(function() {
+        playGame(quizQuestions[count]);
+      }, 5000); //wait to start next question
 }
 
 function playGame(quizQuestion){
    //clear button
    $('#start-here').html(""); 
    $('#answers').empty(); //clearing previous answers
+   $('#user-message').html(""); 
+   $('#image').html(""); 
    console.log("Inside playGame");
    
    //print question
