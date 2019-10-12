@@ -22,14 +22,21 @@ var quizQuestions = [
 
 ]
 
+function clearMessages()
+{
+    clearInterval(intervalId);
+    $('#time-remaining').empty();
+    $('#questions').empty();
+    $('#answers').empty(); //clearing answers to show message
+    $('#user-message').text("Yas qween!");
+}
+
 function yay() {
     correct++;
     console.log(correct);
     //some UX stuff here
-    clearInterval(intervalId);
-    $('#questions').empty();
-    $('#answers').empty(); //clearing answers to show message
-    $('#user-message').text("Yas qween!");
+    clearMessages();
+    $('#user-message').text("YAAAAS QWEEEN! ");
     $('#image').html("<img src="+quizQuestions[count].image+">")
     count++;
     var windowTimeout = setTimeout(function() {
@@ -42,9 +49,7 @@ function nay() {
     wrong++;
     console.log(wrong);
     //some UX stuff here
-    clearInterval(intervalId);
-    $('#questions').empty();
-    $('#answers').empty(); //clearing answers to show message
+    clearMessages();
     $('#user-message').text("NOPE! ");
     $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
@@ -57,21 +62,19 @@ function nay() {
 function timesUp(){
     wrong++;
     console.log(wrong);
-    //some UX stuff here
-    clearInterval(intervalId);
-    $('#questions').empty();
-    $('#answers').empty(); //clearing answers to show message
+    clearMessages();
     $('#user-message').text("Time's Up! ");
     $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
     var windowTimeout = setTimeout(function() {
         playGame(quizQuestions[count]);
-      });
+      }, 5000);
 }
 
 function playGame(quizQuestion){
-   //clear button
+   //clear functionalities, resetting number too
+   number=30;
    $('#start-here').html(""); 
    $('#answers').empty(); //clearing previous answers
    $('#user-message').html(""); 
@@ -91,7 +94,7 @@ function playGame(quizQuestion){
   //set timer
   intervalId = setInterval(function decrement(){
     number--;
-    $("#time-remaining").text("00:"+number);
+    $("#time-remaining").text(number+" seconds left!");
     if (number === 0) {
         timesUp();
     }}, 1000);
