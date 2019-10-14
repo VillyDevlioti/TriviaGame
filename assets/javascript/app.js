@@ -26,7 +26,7 @@ var quizQuestions = [
         image: "./assets/images/michaelholly.gif"
     }
 
-]
+];
 
 function clearMessages()
 {
@@ -35,8 +35,23 @@ function clearMessages()
     $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
     $('#start-here').empty(); 
+    $('#question-count').empty();
     $('#user-message').html(""); 
     $('#image').html(""); 
+}
+
+function checkStatus() { //Checks counter status
+    if (count===0 || count === quizQuestions.length){
+        count=0;
+        var windowTimeout = setTimeout(function(){
+            initializeGame();
+        },3000);
+    } else {
+        var windowTimeout = setTimeout(function() {
+            playGame(quizQuestions[count]);
+          }, 3000); //wait to start next question
+
+    } 
 }
 
 function yay() { //this is what happens if you choose the right answer
@@ -46,11 +61,8 @@ function yay() { //this is what happens if you choose the right answer
     clearMessages();
     $('#user-message').text("YAAAAS QWEEEN! ");
     $('#image').html("<img src="+quizQuestions[count].image+">")
-    count++;
-    var windowTimeout = setTimeout(function() {
-        playGame(quizQuestions[count]);
-      }, 5000); //wait to start next question
-
+    count++; 
+    checkStatus();
 }
 
 function nay() { //this is what happens if you choose the wrong answer
@@ -62,22 +74,18 @@ function nay() { //this is what happens if you choose the wrong answer
     $('#user-message').append("<br>The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
-    var windowTimeout = setTimeout(function() {
-        playGame(quizQuestions[count]);
-      }, 5000); //wait to start next question
+    checkStatus();
 }
 
 function timesUp(){ //this is what happens if your time is up
     wrong++;
-    console.log(wrong);
+    console.log("Wrong answers:", wrong);
     clearMessages(); 
     $('#user-message').text("Time's Up! ");
     $('#user-message').append("<br>The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
-    var windowTimeout = setTimeout(function() {
-        playGame(quizQuestions[count]);
-      }, 5000);
+    checkStatus();
 }
 
 function playGame(quizQuestion){
@@ -117,14 +125,12 @@ function playGame(quizQuestion){
 
 }
 function initializeGame () {
-    console.log(count);
-    if (count===0 || count === quizQuestions.length){
-        console.log("Start Game");
-        $('#start-here').html("<h2 id=\"button-style\">"+"Start here"+"</h2>");
-        correct=0;
-        wrong=0;
 
-    }
+    clearMessages();
+    console.log("Start Game");
+    $('#start-here').html("<h2 id=\"button-style\">"+"Start here"+"</h2>");
+    correct=0;
+    wrong=0;
     $('#start-here').on("click",function(){
         playGame(quizQuestions[count]);
     });
