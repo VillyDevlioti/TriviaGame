@@ -42,8 +42,8 @@ function clearMessages()
     $('#answers').empty(); //clearing answers to show message
     $('#start-here').empty(); 
     $('#question-count').empty();
-    $('#user-message').html(""); 
-    $('#image').html(""); 
+    $('#user-message').empty(); 
+    $('#image').empty(); 
 }
 
 function checkStatus() { //Checks counter status
@@ -97,6 +97,7 @@ function playGame(quizQuestion){
    //clear functionalities, resetting number too
    number=30;
    clearMessages();
+   $('#wrong-rights').empty();
    console.log("Inside playGame");
    
    //print question 
