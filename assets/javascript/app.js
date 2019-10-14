@@ -24,6 +24,12 @@ var quizQuestions = [
         answers: ["3 months", "3 years", "1 year", "6 months"],
         correctAnswer: "3 years",
         image: "./assets/images/michaelholly.gif"
+    },
+    {
+        q: "On \"Beverly Hills, 90210\" the entire high school rallies to ensure this character graduates.",
+        answers: ["Donna Martin", "Kelly Taylor", "Brenda Walsh", "Andrea Zuckerman"],
+        correctAnswer: "Donna Martin",
+        image: "./assets/images/donnamartin.gif"
     }
 
 ];
@@ -107,8 +113,8 @@ function playGame(quizQuestion){
 
   //set timer
   intervalId = setInterval(function decrement(){
-    number--;
     $("#time-remaining").text(number+" seconds left!");
+    number--;
     if (number === 0) {
         timesUp();
     }}, 1000);
