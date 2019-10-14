@@ -49,9 +49,8 @@ function clearMessages()
 function checkStatus() { //Checks counter status
     if (count===0 || count === quizQuestions.length){
         count=0;
-        var windowTimeout = setTimeout(function(){
-            initializeGame();
-        },3000);
+        $('#wrong-rights').text("You scored "+correct+ " correct and "+ wrong+" wrong answers.");
+        initializeGame();
     } else {
         var windowTimeout = setTimeout(function() {
             playGame(quizQuestions[count]);
@@ -113,8 +112,8 @@ function playGame(quizQuestion){
 
   //set timer
   intervalId = setInterval(function decrement(){
-    $("#time-remaining").text(number+" seconds left!");
     number--;
+    $("#time-remaining").text(number+" seconds left!");
     if (number === 0) {
         timesUp();
     }}, 1000);
