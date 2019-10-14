@@ -8,7 +8,7 @@ var intervalId; //I'll use this for countdown
 
 var quizQuestions = [
     { 
-        q :"Which one of these is NOT a name of a Spice girl", 
+        q: "Which one of these is NOT a name of a Spice girl", 
         answers: ["Scary Spice", "Posh Spice", "Ginger Spice", "Smelly Spice"],
         correctAnswer: "Smelly Spice",
         image: "./assets/images/spiceGirls.gif"
@@ -17,7 +17,13 @@ var quizQuestions = [
         q: "What is the name of Andy's bank in Parks and Rec?",
         answers: ["Snakehole Club", "Cockroach", "Mouse Rat", "Pest Control"],
         correctAnswer: "Mouse Rat",
-        image:"./assets/images/mouserat.gif"
+        image: "./assets/images/mouserat.gif"
+    },
+    {
+        q: "According to Michael Scott, how many salaries should an engagement ring cost?",
+        answers: ["3 months", "3 years", "1 year", "6 months"],
+        correctAnswer: "3 years",
+        image: "./assets/images/michaelholly.gif"
     }
 
 ]
@@ -28,12 +34,14 @@ function clearMessages()
     $('#time-remaining').empty();
     $('#questions').empty();
     $('#answers').empty(); //clearing answers to show message
-    $('#user-message').text("Yas qween!");
+    $('#start-here').empty(); 
+    $('#user-message').html(""); 
+    $('#image').html(""); 
 }
 
-function yay() {
+function yay() { //this is what happens if you choose the right answer
     correct++;
-    console.log(correct);
+    console.log("Correct answers:", correct);
     //some UX stuff here
     clearMessages();
     $('#user-message').text("YAAAAS QWEEEN! ");
@@ -45,13 +53,13 @@ function yay() {
 
 }
 
-function nay() {
+function nay() { //this is what happens if you choose the wrong answer
     wrong++;
-    console.log(wrong);
+    console.log("Wrong answers:", wrong);
     //some UX stuff here
     clearMessages();
     $('#user-message').text("NOPE! ");
-    $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
+    $('#user-message').append("<br>The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
     var windowTimeout = setTimeout(function() {
@@ -59,12 +67,12 @@ function nay() {
       }, 5000); //wait to start next question
 }
 
-function timesUp(){
+function timesUp(){ //this is what happens if your time is up
     wrong++;
     console.log(wrong);
-    clearMessages();
+    clearMessages(); 
     $('#user-message').text("Time's Up! ");
-    $('#user-message').append("The correct answer is: "+quizQuestions[count].correctAnswer);
+    $('#user-message').append("<br>The correct answer is: "+quizQuestions[count].correctAnswer);
     $('#image').html("<img src="+quizQuestions[count].image+">");
     count++;
     var windowTimeout = setTimeout(function() {
@@ -75,19 +83,17 @@ function timesUp(){
 function playGame(quizQuestion){
    //clear functionalities, resetting number too
    number=30;
-   $('#start-here').html(""); 
-   $('#answers').empty(); //clearing previous answers
-   $('#user-message').html(""); 
-   $('#image').html(""); 
+   clearMessages();
    console.log("Inside playGame");
    
    //print question 
    console.log(quizQuestion.q);
+   $('#question-count').text('Question: '+(count+1)+" of "+quizQuestions.length);
    $('#questions').text(quizQuestion.q);
 
    //print multiple choice answers
    $.each(quizQuestion.answers, function(key, value ) {
-    $('#answers').append("<h2 id=\"answer-item\">"+value+"</h2>")
+    $('#answers').append("<h2 id=\"button-style\">"+value+"</h2>")
     console.log(value);
   });
 
@@ -99,9 +105,8 @@ function playGame(quizQuestion){
         timesUp();
     }}, 1000);
 
-   console.log("Before clicking") ;
   //check answer
-  $("h2[id*='answer-item']").on("click", function(){ //REUSABLE CODEEEEEEE
+  $("h2[id*='button-style']").on("click", function(){ //REUSABLE CODEEEEEEE
       console.log("Checking answer", $(this).text(), "vs", quizQuestion.correctAnswer)
     if ($(this).text() === quizQuestion.correctAnswer) {
         yay(); //or how to avoid clicks stacking up
@@ -115,7 +120,7 @@ function initializeGame () {
     console.log(count);
     if (count===0 || count === quizQuestions.length){
         console.log("Start Game");
-        $('#start-here').html("<button type=\"button\" class=\"btn btn-primary btn-lg btn-block\">"+"Start here"+"</button>");
+        $('#start-here').html("<h2 id=\"button-style\">"+"Start here"+"</h2>");
         correct=0;
         wrong=0;
 

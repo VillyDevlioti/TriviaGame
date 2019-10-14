@@ -11,13 +11,16 @@ body {
     font-family: 'Kanit', sans-serif;
     color: magenta;
     font-size: 48px;
+    padding: 0%;
   }
-
+  .col-8-lg {
+      width: 100%;
+  }
   .main-box {
       background: yellow;
       border: 2px solid black;
       text-align: center;
-      padding: 5% 27% 10% 28%;
+      padding: 5% 5% 10% 5%;
       text-align: center;
   }
 
@@ -25,16 +28,16 @@ body {
       margin-top: 5%;
   }
 
-  #answer-item {
+  #button-style {
       background: pink;
       border: 2px solid purple;
       color: black;
       padding: 5%;
-      margin: 2% 0 2% 0;
+      margin: 2% 15% 2% 15%;
       border-radius: 4px;
   }
 
-  #answer-item:hover {
+  #button-style:hover {
     background: purple;
     border: 2px solid white;
     color: white;
